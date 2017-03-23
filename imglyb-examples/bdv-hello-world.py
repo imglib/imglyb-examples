@@ -52,7 +52,7 @@ if __name__ == "__main__":
 	renderer_helper = RectangleOverlayRenderer()
 	rectangle_renderer = util.GenericOverlayRenderer( lambda g : renderer_helper.draw_overlays( g ), lambda w, h : renderer_helper.set_canvas_size( w, h ) )
 
-	img = np.random.randint( 2**32, size=shape, dtype=np.uint32 )
+	img = np.random.randint( 2**32, size=shape ).astype( np.uint32 )
 	argb = util.to_imglib_argb( img )
 
 	opts = util.options2D() if args.is2D or len(shape) == 2 else util.BdvOptions.options()

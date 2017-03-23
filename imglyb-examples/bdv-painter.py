@@ -77,10 +77,11 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument( '--shape', '-s', default='300,200' )
 	parser.add_argument( '--is2D', action='store_true' )
+	parser.add_argument( '--radius', '-r', default=5, type=int )
 	args = parser.parse_args()
 	shape =  tuple( int(s) for s in args.shape.split(',') )[:4]
 
-	radius = 5
+	radius = args.radius
 	mask = make_sphere( len(shape), radius )
 
 	background_color = 127 << 16 | 127 << 0

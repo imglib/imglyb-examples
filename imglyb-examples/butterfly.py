@@ -51,9 +51,9 @@ if __name__ == "__main__":
 	
 
 	bdv = util.BdvFunctions.show( util.to_imglib_argb( argb ), "argb", util.options2D() )
-	util.BdvFunctions.show( Converters.convert( util.to_imglib( avg ), avg_conv, t ), "mean (numpy)", util.BdvOptions.addTo( bdv ) )
-	util.BdvFunctions.show( Converters.convert( util.to_imglib( gradient ), gradient_conv, t ), "gradient (vigra)", util.BdvOptions.addTo( bdv ) )
-	util.BdvFunctions.show( Converters.convert( util.to_imglib( dt ), dt_conv, t ), "Distance Transform (ImgLib2)", util.BdvOptions.addTo( bdv ) )
+	util.BdvFunctions.show( Converters.convert( cast( 'net.imglib2.RandomAccessibleInterval', util.to_imglib( avg ) ), avg_conv, t ), "mean (numpy)", util.BdvOptions.addTo( bdv ) )
+	util.BdvFunctions.show( Converters.convert( cast( 'net.imglib2.RandomAccessibleInterval', util.to_imglib( gradient ) ), gradient_conv, t ), "gradient (vigra)", util.BdvOptions.addTo( bdv ) )
+	util.BdvFunctions.show( Converters.convert( cast( 'net.imglib2.RandomAccessibleInterval', util.to_imglib( dt ) ), dt_conv, t ), "Distance Transform (ImgLib2)", util.BdvOptions.addTo( bdv ) )
 
 
 	# Show only one source at a time.

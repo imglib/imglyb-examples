@@ -46,11 +46,6 @@ if __name__ == "__main__":
 	bdv = util.BdvFunctions.show( util.to_imglib_argb( img ), 'stack' )
 	vp = bdv.getBdvHandle().getViewerPanel()
 
-	# Keep Python running until user closes Bdv window
-	check = autoclass( 'net.imglib2.python.BdvWindowClosedCheck' )()
-	frame = cast( 'javax.swing.JFrame', autoclass( 'javax.swing.SwingUtilities' ).getWindowAncestor( vp ) )
-	frame.addWindowListener( check )
-
 	cmd = [ 'xwininfo', '-name', 'BigDataViewer' ] #  | grep -oP '(?<=id: )(0x[0-9]+)'"
 	
 	xwininfo = subprocess.Popen( cmd, stdout=subprocess.PIPE )

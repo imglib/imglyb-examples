@@ -18,9 +18,16 @@ class MainWindow( QtGui.QWidget ):
 
 		self.bdv_frame = bdv_frame
 		self.random_button = QtGui.QPushButton( "QPushButton : Randomize!" )
-		self.layout = QtGui.QVBoxLayout()
-		self.layout.addWidget( self.bdv_frame )
-		self.layout.addWidget( self.random_button )
+		self.random_button2 = QtGui.QPushButton( "QPushButton : No op!" )
+		self.random_button3 = QtGui.QPushButton( "QPushButton : No op!" )
+		self.random_button4 = QtGui.QPushButton( "QPushButton : No op!" )
+		self.layout = QtGui.QGridLayout()
+		self.layout.addWidget( self.bdv_frame, 0, 0, 6, 6 )
+		self.layout.addWidget( self.random_button, 0, 10, 1, 1 )
+		self.layout.addWidget( self.random_button2, 1, 10, 1, 1 )
+		self.layout.addWidget( self.random_button3, 2, 10, 1, 1 )
+		self.layout.addWidget( self.random_button4, 3, 10, 1, 1 )
+		self.layout.setContentsMargins( 0, 0, 0, 0 )
 		self.setLayout( self.layout )
 		self.ndarray = ndarray
 		self.viewer_panel = viewer_panel
@@ -30,6 +37,7 @@ class MainWindow( QtGui.QWidget ):
 			viewer_panel.requestRepaint()
 
 		self.random_button.clicked.connect( lambda : fill_on_click( self.ndarray, self.viewer_panel ) )
+		self.setGeometry( 300, 300, 500, 500 )
 
 
 if __name__ == "__main__":

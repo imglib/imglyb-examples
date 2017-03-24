@@ -67,6 +67,7 @@ if __name__ == "__main__":
 	frame = QtGui.QX11EmbedContainer()
 	mw = MainWindow( frame, img, vp )
 	frame.embedClient( int( w_ids[0], 16 ) )
+	mw.setWindowTitle( "BigDataViewer wrapped into QT!" )
 	mw.show()
 	sys.exit( app.exec_() )
 

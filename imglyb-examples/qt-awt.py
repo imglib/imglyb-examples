@@ -1,6 +1,13 @@
 from __future__ import print_function
 
 # THIS WORKS ON x11 only!!!
+# x11: QX11EmbedContainer
+# Wayland: ?
+# For Cocoa: Try QMacCocoaViewContainer
+# Windows: ?
+
+# Might be possible in Qt5:
+# Also: http://stackoverflow.com/questions/33699258/qt-5-5-embed-external-application-into-qwidget (qt5)
 
 import imglyb
 from imglyb import util

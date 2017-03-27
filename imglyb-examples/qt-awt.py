@@ -13,22 +13,21 @@ import imglyb
 from imglyb import util
 from jnius import autoclass, cast, PythonJavaClass, java_method
 import numpy as np
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 import re
-import subprocess
 import sys
 import time
 
-class MainWindow( QtGui.QWidget ):
+class MainWindow( QtWidgets.QWidget ):
 	def __init__( self, bdv_frame, ndarray, viewer_panel ):
 		super( MainWindow, self ).__init__()
 
 		self.bdv_frame = bdv_frame
-		self.random_button = QtGui.QPushButton( "QPushButton : Randomize!" )
-		self.random_button2 = QtGui.QPushButton( "QPushButton : No op!" )
-		self.random_button3 = QtGui.QPushButton( "QPushButton : No op!" )
-		self.random_button4 = QtGui.QPushButton( "QPushButton : No op!" )
-		self.layout = QtGui.QGridLayout()
+		self.random_button = QtWidgets.QPushButton( "QPushButton : Randomize!" )
+		self.random_button2 = QtWidgets.QPushButton( "QPushButton : No op!" )
+		self.random_button3 = QtWidgets.QPushButton( "QPushButton : No op!" )
+		self.random_button4 = QtWidgets.QPushButton( "QPushButton : No op!" )
+		self.layout = QtWidgets.QGridLayout()
 		self.layout.addWidget( self.bdv_frame, 0, 0, 6, 6 )
 		self.layout.addWidget( self.random_button, 0, 10, 1, 1 )
 		self.layout.addWidget( self.random_button2, 1, 10, 1, 1 )
@@ -46,6 +45,21 @@ class MainWindow( QtGui.QWidget ):
 		self.random_button.clicked.connect( lambda : fill_on_click( self.ndarray, self.viewer_panel ) )
 		self.setGeometry( 300, 300, 500, 500 )
 
+def get_parent_id_xlib( name, indent='-' ):
+	from Xlib import X
+	from Xlib.display import Display
+	display = Display()
+	root = display.screen().root
+	children = root.query_tree().children
+	parent_ids = []
+	for c in children:
+		c_name = c.get_wm_name()
+		if c_name and name in c_name:
+			transient_for = c.get_wm_transient_for()
+			if not transient_for is None: 
+				parent_ids.append( transient_for.id )
+
+	return parent_ids
 
 if __name__ == "__main__":
 	import argparse
@@ -60,12 +74,8 @@ if __name__ == "__main__":
 		
 	bdv = util.BdvFunctions.show( util.to_imglib_argb( img ), 'stack' )
 	vp = bdv.getBdvHandle().getViewerPanel()
-
-	cmd = [ 'xwininfo', '-name', 'BigDataViewer' ] #  | grep -oP '(?<=id: )(0x[0-9]+)'"
-	
-	xwininfo = subprocess.Popen( cmd, stdout=subprocess.PIPE )
-	out, err = xwininfo.communicate()
-	w_ids = [ l for l in str( out ).split( '\\n' ) if 'Window id' in l ]
+	# why do I need to go through 'visiblity and grouping'?
+	w_ids = get_parent_id_xlib( 'visibility and grouping' )
 
 	if len( w_ids ) == 0:
 		print( "Did not find any BigDataViewer windows, exiting..." )
@@ -75,13 +85,13 @@ if __name__ == "__main__":
 		print( "Found more than one BigDataViewer windows, exiting..." )
 		sys.exit( 2 )
 	
-	w_ids = [ re.search( '(0x[0-9A-Za-z]+)', w_id ).group( 1 ) for w_id in w_ids ]
+	print( w_ids )
 	
-	
-	app = QtGui.QApplication( sys.argv )
-	frame = QtGui.QX11EmbedContainer()
+
+	app = QtWidgets.QApplication( sys.argv )
+	window = QtGui.QWindow.fromWinId( w_ids[0] )
+	frame = QtWidgets.QWidget.createWindowContainer( window )
 	mw = MainWindow( frame, img, vp )
-	frame.embedClient( int( w_ids[0], 16 ) )
 	mw.setWindowTitle( "BigDataViewer wrapped into QT!" )
 	mw.show()
 	sys.exit( app.exec_() )

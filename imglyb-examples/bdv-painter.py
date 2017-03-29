@@ -40,7 +40,7 @@ class SpherePainter( PythonJavaClass ):
 	
 	@java_method('(II)V')
 	def end( self, x, y ):
-		pass
+		self.paint_listener()
 
 	def _paint( self, x, y ):
 		self._setCoordinates( x, y )
@@ -63,7 +63,6 @@ class SpherePainter( PythonJavaClass ):
 		
 		# cropped_mask = self.mask[ mask_selection ]
 		self.img[ img_selection  ][ self.mask[ mask_selection ] ] = self.color
-		self.paint_listener()
 		self.viewer.requestRepaint()
 	
 	def _setCoordinates( self, x, y ):

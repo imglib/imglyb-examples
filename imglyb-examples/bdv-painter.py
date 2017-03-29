@@ -12,8 +12,8 @@ def make_sphere( num_dimensions, radius ):
 	radius_squared = radius * radius
 	return np.sum( [np.square( g ) for g in mgrid ], axis=0 ) <= radius_squared
 
-def make_checkerboard( num_dimensions, width ):
-	coords = [ np.arange( width ) for d in range( num_dimensions ) ]
+def make_checkerboard( num_dimensions, radius ):
+	coords = [ np.arange( 2 * radius ) for d in range( num_dimensions ) ]
 	mgrid = np.meshgrid( *coords )
 	return np.mod( np.sum( mgrid, axis=0 ), 2 ) == 0
 
@@ -108,12 +108,17 @@ if __name__ == "__main__":
 	parser.add_argument( '--shape', '-s', default='300,200' )
 	parser.add_argument( '--is2D', action='store_true' )
 	parser.add_argument( '--radius', '-r', default=5, type=int )
+	parser.add_argument( '--brush', '-b', default='sphere' )
 	args = parser.parse_args()
 	shape =  tuple( int(s) for s in args.shape.split(',') )[:4]
 
+	brushes = {
+		'sphere' : make_sphere,
+		'checkers' : make_checkerboard
+		}
+
 	radius = args.radius
-	# mask = make_sphere( len(shape), radius )
-	mask = make_checkerboard( len(shape), 2 * radius )
+	mask = brushes[ args.brush ]( len(shape), radius )
 
 	background_color = 127 << 16 | 127 << 0
 	foreground_color = 229 <<  8 | 229 << 0

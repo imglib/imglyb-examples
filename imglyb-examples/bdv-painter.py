@@ -12,6 +12,11 @@ def make_sphere( num_dimensions, radius ):
 	radius_squared = radius * radius
 	return np.sum( [np.square( g ) for g in mgrid ], axis=0 ) <= radius_squared
 
+def make_checkerboard( num_dimensions, width ):
+	coords = [ np.arange( width ) for d in range( num_dimensions ) ]
+	mgrid = np.meshgrid( *coords )
+	return np.mod( np.sum( mgrid, axis=0 ), 2 ) == 0
+
 RealPoint = autoclass( 'net.imglib2.RealPoint' )
 
 class SpherePainter( PythonJavaClass ):
@@ -107,7 +112,8 @@ if __name__ == "__main__":
 	shape =  tuple( int(s) for s in args.shape.split(',') )[:4]
 
 	radius = args.radius
-	mask = make_sphere( len(shape), radius )
+	# mask = make_sphere( len(shape), radius )
+	mask = make_checkerboard( len(shape), 2 * radius )
 
 	background_color = 127 << 16 | 127 << 0
 	foreground_color = 229 <<  8 | 229 << 0

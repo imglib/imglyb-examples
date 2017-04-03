@@ -10,6 +10,10 @@ import vigra
 
 print (imglyb)
 
+
+def cast_to_rai( source ):
+	return cast( 'net.imglib2.RandomAccessibleInterval', source )
+
 if __name__ == "__main__":
 	import argparse
 	default_url = 'https://github.com/hanslovsky/imglyb-examples/raw/master/resources/butterfly_small.jpg'

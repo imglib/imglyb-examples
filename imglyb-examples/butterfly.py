@@ -42,30 +42,34 @@ if __name__ == "__main__":
 
 	avg = np.mean( img, axis=2 )
 	avg_conv = RealARGBConverter( avg.min(), avg.max() )
-
 	gradient = vigra.filters.gaussianGradientMagnitude( avg, 5.0 )
 	gradient_conv = RealARGBConverter( gradient.min(), gradient.max() )
-
 	dt = np.zeros( avg.shape, dtype=avg.dtype )
 	print( "Distance transform output mean before applying ImgLib2 dt: ", dt.mean() )
 	cpu_count = multiprocessing.cpu_count()
 	DistanceTransform.transform( Views.extendBorder( util.to_imglib( -gradient ) ), util.to_imglib( dt ), DISTANCE_TYPE.EUCLIDIAN, Executors.newFixedThreadPool( cpu_count ), cpu_count, 1e-2, 2e-2  )
 	print( "Distance transform output mean after applying ImgLib2 dt: ", dt.mean() )
 	dt_conv = RealARGBConverter( dt.min(), dt.max() )
-	
 
 	bdv = util.BdvFunctions.show( util.to_imglib_argb( argb ), "argb", util.options2D().frameTitle( "b-fly" ) )
-	util.BdvFunctions.show( Converters.convert( cast( 'net.imglib2.RandomAccessibleInterval', util.to_imglib( avg ) ), avg_conv, t ), "mean (numpy)", util.BdvOptions.addTo( bdv ) )
-	util.BdvFunctions.show( Converters.convert( cast( 'net.imglib2.RandomAccessibleInterval', util.to_imglib( gradient ) ), gradient_conv, t ), "gradient (vigra)", util.BdvOptions.addTo( bdv ) )
-	util.BdvFunctions.show( Converters.convert( cast( 'net.imglib2.RandomAccessibleInterval', util.to_imglib( dt ) ), dt_conv, t ), "Distance Transform (ImgLib2)", util.BdvOptions.addTo( bdv ) )
+	util.BdvFunctions.show( Converters.convert( cast_to_rai( util.to_imglib( avg ) ), avg_conv, t ), "mean (numpy)", util.BdvOptions.addTo( bdv ) )
+	util.BdvFunctions.show( Converters.convert( cast_to_rai( util.to_imglib( gradient ) ), gradient_conv, t ), "gradient (vigra)", util.BdvOptions.addTo( bdv ) )
+	util.BdvFunctions.show( Converters.convert( cast_to_rai( util.to_imglib( dt ) ), dt_conv, t ), "Distance Transform (ImgLib2)", util.BdvOptions.addTo( bdv ) )
 
+	for x in range( 3 ):
+		step = np.array( argb.shape ) // 3
+		lower = step * x
+		upper = step * ( x + 1 )
+		slicing = [ slice(l,u) for l,u in zip(lower,upper)]
+		rai = cast_to_rai( util.to_imglib_argb( argb[ slicing ] ) )
+		util.BdvFunctions.show( Views.translate( rai, *[ int(l) for l in lower[::-1] ] ), "argb", util.BdvOptions.addTo( bdv ) )
 
 	# Show only one source at a time.
 	DisplayMode = autoclass( 'bdv.viewer.DisplayMode' )
 	vp = bdv.getBdvHandle().getViewerPanel()
 	grouping = vp.getVisibilityAndGrouping()
 	grouping.setDisplayMode( DisplayMode.GROUP )
-	for idx in range(4):
+	for idx in range( 4 + 3 ):
 		grouping.addSourceToGroup( idx, idx )
 
 	# Keep Python running until user closes Bdv window

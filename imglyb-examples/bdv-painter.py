@@ -130,7 +130,8 @@ if __name__ == "__main__":
 	bdv = util.BdvFunctions.show( argb, "random argbs", opts )
 	vp = bdv.getBdvHandle().getViewerPanel()
 
-	painter = SpherePainter( img.transpose(), mask, vp, foreground_color, lambda : print( "Foreground proportion:", np.sum( img == foreground_color ) / img.size ) )
+# 	painter = SpherePainter( img.transpose(), mask, vp, foreground_color, lambda : print( "Foreground proportion:", np.sum( img == foreground_color ) / img.size ) )
+	painter = SpherePainter( img.transpose(), mask, vp, foreground_color, lambda : None ) # print( "Now", np.sum( img == foreground_color ) / img.size, " of the image is foreground" ) )
 	Helpers = autoclass( 'net.imglib2.python.Helpers' )
 	behaviors = Helpers.behaviours()
 	behaviors.install( bdv.getBdvHandle().getTriggerbindings(), "paint" )

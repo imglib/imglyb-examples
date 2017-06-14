@@ -4,9 +4,9 @@ from imglyb import util
 from jnius import autoclass, cast
 import multiprocessing
 import numpy as np
+from skimage import filters
 from skimage import io
 import time
-import vigra
 
 print (imglyb)
 
@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
 	avg = np.mean( img, axis=2 )
 	avg_conv = RealARGBConverter( avg.min(), avg.max() )
-	gradient = vigra.filters.gaussianGradientMagnitude( avg, 5.0 )
+	gradient = filters.sobel( avg )
 	gradient_conv = RealARGBConverter( gradient.min(), gradient.max() )
 	dt = np.zeros( avg.shape, dtype=avg.dtype )
 	print( "Distance transform output mean before applying ImgLib2 dt: ", dt.mean() )

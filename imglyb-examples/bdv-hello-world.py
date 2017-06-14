@@ -4,6 +4,7 @@ from imglyb import util
 from jnius import autoclass, cast, PythonJavaClass, java_method
 import numpy as np
 import time
+import threading
 
 print (imglyb)
 
@@ -66,5 +67,10 @@ if __name__ == "__main__":
 	check = autoclass( 'net.imglib2.python.BdvWindowClosedCheck' )()
 	frame = cast( 'javax.swing.JFrame', autoclass( 'javax.swing.SwingUtilities' ).getWindowAncestor( vp ) )
 	frame.addWindowListener( check )
-	while check.isOpen():
-		time.sleep( 0.1 )
+
+	def sleeper():
+		while check.isOpen():
+			time.sleep( 0.1 )
+
+	t = threading.Thread( target=sleeper )
+	t.start()

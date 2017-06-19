@@ -34,7 +34,7 @@ python -m imglyb-examples.butterfly
 python -m imglyb-examples.bdv-hello-world
 # Python implementation of a painting tool for BigDataViewer
 python -m imglyb-examples.bdv-painter
-# Embed BigDataViewer in Qt application
+# Embed BigDataViewer in Qt application (only Linux, and Qt and python-xlib dependencies)
 python -m imglyb-examples.qt-awt
 # Basic visualization of series of 2D NumPy arrays
 python -m imglyb-examples.views-stack

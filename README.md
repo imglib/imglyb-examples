@@ -20,7 +20,7 @@ python setup.py install
 
 ### Conda
 ```bash
-conda install -c hanslovsky -c ukoethe imglyb-examples
+conda install -c hanslovsky imglyb-examples
 ```
 If `imglib2-imglyb` was not previously installed, re-source the current conda environment after installing to set the environment properly.
 

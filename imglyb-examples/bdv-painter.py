@@ -149,4 +149,5 @@ if __name__ == "__main__":
 
 	t = threading.Thread( target=sleeper )
 	t.start()
+	t.join()
 	

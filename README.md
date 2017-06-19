@@ -6,7 +6,6 @@ This is a repository of examples for [imglib2-imglyb](https://github.com/hanslov
 All dependencies will be installed automatically when installing `imglyb-examples` through conda.
  - [imglib2-imglyb](https://github.com/hanslovsky/imglib2-imglyb)
  - [numpy](http://www.numpy.org)
- - [vigra](https://github.com/ukoethe/vigra)
  - [scikit-image](https://github.com/scikit-image/scikit-image)
  
 [imglib2-imglyb](https://github.com/hanslovsky/imglib2-imglyb) is available on conda or you can install it manually following the build instructions. All other depdendencies are available through your package manager, `pip`, or various anaconda channels.

@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
 	bdv = util.BdvFunctions.show( util.to_imglib_argb( argb ), "argb", util.options2D().frameTitle( "b-fly" ) )
 	util.BdvFunctions.show( Converters.convert( cast_to_rai( util.to_imglib( avg ) ), avg_conv, t ), "mean (numpy)", util.BdvOptions.addTo( bdv ) )
-	util.BdvFunctions.show( Converters.convert( cast_to_rai( util.to_imglib( gradient ) ), gradient_conv, t ), "gradient (vigra)", util.BdvOptions.addTo( bdv ) )
+	util.BdvFunctions.show( Converters.convert( cast_to_rai( util.to_imglib( gradient ) ), gradient_conv, t ), "sobel filter (scikit-imagej)", util.BdvOptions.addTo( bdv ) )
 	util.BdvFunctions.show( Converters.convert( cast_to_rai( util.to_imglib( dt ) ), dt_conv, t ), "Distance Transform (ImgLib2)", util.BdvOptions.addTo( bdv ) )
 
 	for x in range( 3 ):

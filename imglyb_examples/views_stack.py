@@ -4,7 +4,7 @@ from jnius import autoclass, cast
 import numpy as np
 import time
 
-if __name__ == "__main__":
+def main():
 	import argparse
 	parser = argparse.ArgumentParser()
 	parser.add_argument( '--width', '-W', type=int, default=400 )
@@ -37,3 +37,6 @@ if __name__ == "__main__":
 	while check.isOpen():
 		time.sleep( 0.1 )
 	
+
+if __name__ == "__main__":
+    main()

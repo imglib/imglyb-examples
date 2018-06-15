@@ -103,7 +103,7 @@ class SpherePainter( PythonJavaClass ):
 		self.labelLocation.setPosition( 0, 2 )
 		self.viewer.displayToGlobalCoordinates( self.labelLocation )
 
-if __name__ == "__main__":
+def main():
 	import argparse
 	parser = argparse.ArgumentParser()
 	parser.add_argument( '--shape', '-s', default='300,200' )
@@ -150,4 +150,7 @@ if __name__ == "__main__":
 	t = threading.Thread( target=sleeper )
 	t.start()
 	t.join()
+
+if __name__ == "__main__":
+    main()
 	

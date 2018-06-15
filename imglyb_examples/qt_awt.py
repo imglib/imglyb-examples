@@ -61,7 +61,7 @@ def get_parent_id_xlib( name, indent='-' ):
 
 	return parent_ids
 
-if __name__ == "__main__":
+def main():
 	import argparse
 	parser = argparse.ArgumentParser()
 	parser.add_argument( '--width', '-W', type=int, default=400 )
@@ -96,5 +96,5 @@ if __name__ == "__main__":
 	mw.show()
 	sys.exit( app.exec_() )
 
-	
-	
+if __name__ == "__main__":
+    main()	

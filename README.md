@@ -29,14 +29,21 @@ These examples are available.
 ```bash
 # bash
 # Basic visualization and application of Python and ImgLib2 filters
-python -m imglyb-examples.butterfly
+python -m imglyb_examples.butterfly
 # Python implemented overlays for BigDataViewer
-python -m imglyb-examples.bdv-hello-world
+python -m imglyb_examples.bdv_hello_world
 # Python implementation of a painting tool for BigDataViewer
-python -m imglyb-examples.bdv-painter
+python -m imglyb_examples.bdv_painter
 # Embed BigDataViewer in Qt application (only Linux, and Qt and python-xlib dependencies)
-python -m imglyb-examples.qt-awt
+python -m imglyb_examples.qt_awt
 # Basic visualization of series of 2D NumPy arrays
-python -m imglyb-examples.views-stack
+python -m imglyb_examples.views_stack
 ```
-I recommend starting your own code from these examples and extend as you need.
+I recommend starting your own code from these examples and extend as you need. On Linux and Windows you can run these commands like this, as well:
+```bash
+imglyb-examples.butterfly
+imglyb-examples.bdv-hello-world
+imglyb-examples.bdv-painter
+mglyb-examples.qt-awt
+imglyb-examples.views-stack
+```

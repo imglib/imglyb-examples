@@ -15,7 +15,7 @@ print (imglyb)
 def cast_to_rai( source ):
 	return cast( 'net.imglib2.RandomAccessibleInterval', source )
 
-if __name__ == "__main__":
+def main():
 	import argparse
 	default_url = 'https://github.com/hanslovsky/imglyb-examples/raw/master/resources/butterfly_small.jpg'
 
@@ -86,3 +86,5 @@ if __name__ == "__main__":
 	t.start()
 	t.join()
 
+if __name__ == "__main__":
+    main()

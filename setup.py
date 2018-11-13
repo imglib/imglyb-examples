@@ -1,8 +1,4 @@
-import os
-import glob
-from subprocess import call
-from distutils.core import setup
-from distutils.command.build_py import build_py
+from setuptools import setup
 
 setup(
     name='imglyb-examples',
@@ -21,5 +17,6 @@ setup(
             'imglyb-examples.views-stack=imglyb_examples.views_stack:main'
         ]
     },
-    install_requires=['imglyb', 'jnius', 'scikit-image', 'numpy']
+    install_requires=['imglyb', 'pyjnius', 'scikit-image', 'numpy'],
+    python_requires='>=3'
 )

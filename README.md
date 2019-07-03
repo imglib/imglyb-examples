@@ -1,14 +1,14 @@
 # imglyb-examples
 
-This is a repository of examples for [imglib2-imglyb](https://github.com/hanslovsky/imglib2-imglyb).
+This is a repository of examples for [imglyb](https://github.com/imglib/imglyb).
 
 ## Dependencies
 All dependencies will be installed automatically when installing `imglyb-examples` through conda.
- - [imglib2-imglyb](https://github.com/hanslovsky/imglib2-imglyb)
+ - [imglyb](https://github.com/hanslovsky/imglyb)
  - [numpy](http://www.numpy.org)
  - [scikit-image](https://github.com/scikit-image/scikit-image)
  
-[imglib2-imglyb](https://github.com/hanslovsky/imglib2-imglyb) is available on conda or you can install it manually following the build instructions. All other depdendencies are available through your package manager, `pip`, or various anaconda channels.
+[imglyb](https://github.com/hanslovsky/imglyb) is available on conda or you can install it manually following the build instructions. All other depdendencies are available through your package manager, `pip`, or various anaconda channels.
 
 ## Install
 
@@ -22,7 +22,7 @@ python setup.py install
 ```bash
 conda install -c hanslovsky imglyb-examples
 ```
-If `imglib2-imglyb` was not previously installed, re-source the current conda environment after installing to set the environment properly.
+If `imglyb` was not previously installed, re-source the current conda environment after installing to set the environment properly.
 
 ## Run
 These examples are available.
